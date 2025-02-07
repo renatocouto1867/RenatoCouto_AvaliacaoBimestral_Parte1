@@ -9,7 +9,7 @@ import javax.annotation.processing.Generated;
 
 public class Result {
 
-
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -31,6 +31,14 @@ public class Result {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

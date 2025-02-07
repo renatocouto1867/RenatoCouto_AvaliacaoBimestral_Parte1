@@ -3,67 +3,99 @@
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
+    android:layout_margin="8dp"
     cardview:cardCornerRadius="8dp"
     cardview:cardElevation="4dp">
 
     <LinearLayout
+        android:id="@+id/linear_layout_principal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="12dp">
 
-        <!-- Rótulos -->
+        <!-- Primeira linha-->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Pokémon"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:text="URL"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Conteúdo -->
-        <LinearLayout
+            android:id="@+id/linear_layout_linha1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:paddingVertical="8dp">
 
-            <!-- Nome do Pokémon -->
-            <TextView
-                android:id="@+id/text_view_nome"
+            <!-- ID -->
+            <LinearLayout
+                android:id="@+id/linear_layout_id"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Nome"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
-            <!-- URL -->
-            <TextView
-                android:id="@+id/text_view_url"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Id:"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_view_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Identificador do item"
+                    android:text="1"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <!-- Nome -->
+            <LinearLayout
+                android:id="@+id/linear_layout_nome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:gravity="center"
-                android:text="www.example.com"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nome:"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_view_nome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:contentDescription="Nome do item"
+                    android:text="nome"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Segunda linha -->
+        <LinearLayout
+            android:id="@+id/linear_layout_linha2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="URL:"
                 android:textSize="14sp"
-                android:paddingEnd="8dp" />
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_view_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:contentDescription="Endereço URL"
+                android:text="www.example.com"
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

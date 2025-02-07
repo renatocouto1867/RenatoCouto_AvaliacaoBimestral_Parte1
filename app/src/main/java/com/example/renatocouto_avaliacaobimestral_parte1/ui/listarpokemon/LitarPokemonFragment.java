@@ -28,6 +28,7 @@ public class LitarPokemonFragment extends Fragment {
 
         binding = FragmentPokemonListarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        exibeProgresso(true);
 
         litarPokemonViewModel.get50Pokemons().observe(getViewLifecycleOwner(), results -> {
             if (results != null) {
@@ -41,15 +42,6 @@ public class LitarPokemonFragment extends Fragment {
         return root;
     }
 
-    private String escreveLita(List<Result> results) {
-        StringBuilder lista = new StringBuilder();
-        for (int i = 0; i < results.size(); i++) {
-
-            lista.append("id :" + (i + 1) + " ").append(results.get(i)).append("\n\n");
-        }
-
-        return lista.toString();
-    }
 
     private void configurarRecyclerViews(List<Result> results) {
         Log.e("tamanho lista", String.valueOf(results.size()));
@@ -62,6 +54,20 @@ public class LitarPokemonFragment extends Fragment {
         recyclerViewPokemon.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false));
 
         recyclerViewPokemon.setAdapter(new ItemListarPokemonAdapter(results));
+        exibeProgresso(false);
+    }
+
+    private void exibeProgresso(boolean exibir){
+
+        if (exibir){
+            binding.progressCircular.setVisibility(View.VISIBLE);
+            binding.tvCarregando.setVisibility(View.VISIBLE);
+        } else {
+            binding.progressCircular.setVisibility(View.GONE);
+            binding.tvCarregando.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override

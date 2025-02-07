@@ -37,6 +37,7 @@ public class DadosRepository {
             Type type = new TypeToken<Pokemon>() {
             }.getType();
             dadosBaixados = gson.fromJson(textoJSON, type);
+            atualizaId();
             return dadosBaixados;
 
         } else {
@@ -60,5 +61,28 @@ public class DadosRepository {
         return lista50;
     }
 
+    public static String getURL() {
+        return URL;
+    }
 
+    public static void atualizaId(){
+        List<Result> results= dadosBaixados.getResults();
+
+        for (int i = 0; i <results.size() ; i++) {
+            results.get(i).setId(getIdPokemon(results.get(i).getUrl()));
+        }
+    }
+
+    public static  int getIdPokemon(String url) {
+        if (url == null || url.isEmpty()) {
+            return -1;
+        }
+        String[] parts = url.split("/");
+        try {
+            //aqui eu pego a ultima posição
+            return Integer.parseInt(parts[parts.length - 1]);
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
 }

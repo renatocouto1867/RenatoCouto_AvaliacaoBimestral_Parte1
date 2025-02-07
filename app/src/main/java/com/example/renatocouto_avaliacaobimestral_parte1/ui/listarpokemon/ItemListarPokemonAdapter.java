@@ -36,6 +36,7 @@ public class ItemListarPokemonAdapter extends RecyclerView.Adapter<ItemListarPok
         Result result = results.get(position);
         holder.textViewNome.setText(result.getName());
         holder.textViewUrl.setText(result.getUrl());
+        holder.textViewId.setText(String.valueOf(result.getId()));
     }
 
     @Override
@@ -46,11 +47,13 @@ public class ItemListarPokemonAdapter extends RecyclerView.Adapter<ItemListarPok
     static class ViewHolder extends RecyclerView.ViewHolder {
         final TextView textViewNome;
         final TextView textViewUrl;
+        final TextView textViewId;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewNome = itemView.findViewById(R.id.text_view_nome);
             textViewUrl = itemView.findViewById(R.id.text_view_url);
+            textViewId = itemView.findViewById(R.id.text_view_id);
         }
     }
 }

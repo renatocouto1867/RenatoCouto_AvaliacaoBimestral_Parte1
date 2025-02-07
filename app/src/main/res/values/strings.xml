@@ -13,4 +13,5 @@
     <string name="menu_listar_pokemon">Listar Pokémon</string>
     <string name="url">Url</string>
     <string name="erro_ao_baixar_dados">Erro ao Baixar dados</string>
+    <string name="carregando">Carregando...</string>
 </resources>

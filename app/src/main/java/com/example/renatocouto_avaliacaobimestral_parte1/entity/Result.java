@@ -1,13 +1,19 @@
 package com.example.renatocouto_avaliacaobimestral_parte1.entity;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import javax.annotation.processing.Generated;
 
 @Generated("jsonschema2pojo")
-
+@Entity(tableName = "pokemon_table")
 public class Result {
+
+    @PrimaryKey(autoGenerate = true)
+    private int idBanco;
 
     private int id;
     @SerializedName("name")

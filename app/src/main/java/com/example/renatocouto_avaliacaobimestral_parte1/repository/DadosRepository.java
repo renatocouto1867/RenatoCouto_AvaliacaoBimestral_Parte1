@@ -1,5 +1,6 @@
 package com.example.renatocouto_avaliacaobimestral_parte1.repository;
 
+import android.app.Application;
 import android.util.Log;
 
 import com.example.renatocouto_avaliacaobimestral_parte1.ClienteHttp.Conexao;
@@ -13,11 +14,22 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DadosRepository {
 
     private static final String URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
     private static Pokemon dadosBaixados;
+    private final ResultDao resultDao;
+    private final ExecutorService executorService;
+
+
+    public DadosRepository(Application application) {
+        AppDatabase database = AppDatabase.getDatabase(application);
+        ResultDao resultDao = database.resultDao();
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+    }
 
     public static Pokemon obterDados() {
 

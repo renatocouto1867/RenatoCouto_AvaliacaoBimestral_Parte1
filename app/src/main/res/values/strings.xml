@@ -23,9 +23,12 @@
     <string name="nenhum_pokemon_encontrado">Nenhum Pokémon encontrado</string>
     <string name="carregando_dados">Carregando dados</string>
     <string name="lista_salva_com_sucesso">Lista salva com sucesso</string>
+    <string name="erro_ao_excluir">Erro ao excluir</string>
+    <string name="listas_excluida">Lista excluida</string>
 
     <string name="confirmar_exclusao">Confirmar Exclusão</string>
     <string name="realmente_deseja_deletar">"Você realmente deseja Limpar o banco de dados?"</string>
     <string name="cancelar">Cancelar</string>
     <string name="confirma">Confirma</string>
+    <string name="erro_ao_deletar_registros">Erro ao deletar registros</string>
 </resources>

@@ -28,33 +28,46 @@ public class ListarPokemonFragment extends Fragment {
     private ListarPokemonViewModel listarPokemonViewModel;
     private List<Result> resultList;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         //para passar o objeto repositorio para a viewModel
         DadosRepository dadosRepository = new DadosRepository(requireActivity().getApplication());
         ListarPokemonViewModelFactory factory = new ListarPokemonViewModelFactory(dadosRepository);
 
         // aqui passo viewModelFactory ja com repositorio
-        listarPokemonViewModel = new ViewModelProvider(this, factory).get(ListarPokemonViewModel.class);
+        listarPokemonViewModel = new ViewModelProvider(this, factory)
+                .get(ListarPokemonViewModel.class);
 
         binding = FragmentPokemonListarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         exibeProgresso(true);
-        listarPokemonViewModel.listar50Pokemins();
 
-        listarPokemonViewModel.getPokemons().observe(getViewLifecycleOwner(), results -> {
-            if (results != null) {
-                resultList = results;
-                configurarRecyclerViews(resultList);
+        listarPokemonViewModel.listar50Pokemons();
 
-            } else {
-                Mensagens.showErro(requireView(), getString(R.string.erro_ao_baixar_dados));
-            }
-        });
+        observeLista();
 
         configuraButtons();
 
         return root;
+    }
+
+    private void observeLista() {
+        listarPokemonViewModel.getPokemons().observe(getViewLifecycleOwner(), results -> {
+            if (results != null) {
+                resultList = results;
+                if (resultList.isEmpty() || resultList == null || resultList.size() == 0) {
+                    binding.recyclerViewPokemons.setVisibility(View.GONE);
+                    binding.tvEmptyState.setVisibility(View.VISIBLE);
+                } else {
+                    binding.tvEmptyState.setVisibility(View.GONE);
+                    binding.recyclerViewPokemons.setVisibility(View.VISIBLE);
+                    configurarRecyclerViews(resultList);
+                }
+            } else {
+                Mensagens.showErro(requireView(), getString(R.string.erro_ao_baixar_dados));
+            }
+        });
     }
 
     private void configuraButtons() {
@@ -66,6 +79,7 @@ public class ListarPokemonFragment extends Fragment {
         });
         binding.buttonLimpar.setOnClickListener(view -> {
             limparBandoDados();
+
         });
     }
 
@@ -78,7 +92,6 @@ public class ListarPokemonFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //sim
                         listarPokemonViewModel.limparBandoDados();
-
                     }
                 }).setNegativeButton(R.string.confirma, new DialogInterface.OnClickListener() {
                     @Override
@@ -90,13 +103,14 @@ public class ListarPokemonFragment extends Fragment {
     }
 
     private void atualizarListaApi() {
-        listarPokemonViewModel.listarBanco();
-
+//        listarPokemonViewModel.listarBanco();
+        listarPokemonViewModel.listar50Pokemons();
     }
 
     private void salvarListaBanco() {
-        listarPokemonViewModel.savarListaPokemons(resultList).observe(getViewLifecycleOwner(), aBoolean -> {
-            if (aBoolean) {
+        listarPokemonViewModel.salvarListaPokemons(resultList);
+        listarPokemonViewModel.getMensagem().observe(getViewLifecycleOwner(), s -> {
+            if (s.equals("sucesso")) {
                 Mensagens.showSucesso(requireView(), getString(R.string.lista_salva_com_sucesso));
             }
         });

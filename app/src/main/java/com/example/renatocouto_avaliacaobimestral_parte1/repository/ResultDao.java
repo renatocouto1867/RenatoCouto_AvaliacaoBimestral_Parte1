@@ -19,7 +19,7 @@ public interface ResultDao {
     List<Result> getAllResults();
 
     @Query("DELETE FROM pokemon_table")
-    void deleteAll();
+    int deleteAll();
 
     /**
      * para salvar em lote.

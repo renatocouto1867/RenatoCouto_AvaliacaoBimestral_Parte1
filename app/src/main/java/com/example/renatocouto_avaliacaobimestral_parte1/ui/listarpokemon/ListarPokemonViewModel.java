@@ -57,7 +57,7 @@ public class ListarPokemonViewModel extends ViewModel {
                 List<Result> pokemonList = new ArrayList<>();
                 pokemonList.addAll(results);
                 Log.e("tamanho lista Banco", String.valueOf(pokemonList.size()));
-                if (pokemonList.size()==0||pokemonList==null||pokemonList.isEmpty()){
+                if (pokemonList.size() == 0 || pokemonList == null || pokemonList.isEmpty()) {
                     Log.e("tamanho lista Banco", "lista vazia");
                     liveDataRecebido.postValue(new ArrayList<Result>());
                 }
@@ -92,7 +92,12 @@ public class ListarPokemonViewModel extends ViewModel {
         dadosRepository.bancoDeleteAll(new DadosRepository.OnDeleteAllListener() {
             @Override
             public void onSuccess(int registrosAfetados) {
-//                listarBanco();
+                if (registrosAfetados == 0) {
+                    liveDataMensagem.postValue("vazio");
+                }
+                if (registrosAfetados > 0) {
+                    liveDataMensagem.postValue("sucesso");
+                }
             }
 
             @Override

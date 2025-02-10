@@ -74,9 +74,10 @@ public class ListarPokemonFragment extends Fragment {
         binding.buttonSalvar.setOnClickListener(view -> {
             salvarListaBanco();
         });
-        binding.buttonBaixar.setOnClickListener(view -> {
-            atualizarListaApi();
-        });
+//        apenas para teste
+//        binding.buttonBaixar.setOnClickListener(view -> {
+//            atualizarListaApi();
+//        });
         binding.buttonLimpar.setOnClickListener(view -> {
             limparBandoDados();
 
@@ -92,6 +93,17 @@ public class ListarPokemonFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         //sim
                         listarPokemonViewModel.limparBandoDados();
+                        listarPokemonViewModel.getMensagem().observe(getViewLifecycleOwner(), s -> {
+                            if (s.equals("sucesso")) {
+                                Mensagens.showAlerta(requireView(), getString(R.string.listas_excluida));
+                            }
+                            if (s.equals("erro")) {
+                                Mensagens.showErro(requireView(), getString(R.string.erro_ao_deletar_registros));
+                            }
+                            if (s.equals("vazio")) {
+                                Mensagens.showErro(requireView(), getString(R.string.banco_vazio));
+                            }
+                        });
                     }
                 }).setNegativeButton(R.string.confirma, new DialogInterface.OnClickListener() {
                     @Override

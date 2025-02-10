@@ -2,6 +2,7 @@ package com.example.renatocouto_avaliacaobimestral_parte1;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -59,4 +60,14 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_sair) {
+            finishAffinity();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

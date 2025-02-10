@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_litar_pokemon"
-        android:name="com.example.renatocouto_avaliacaobimestral_parte1.ui.listarpokemon.LitarPokemonFragment"
+        android:name="com.example.renatocouto_avaliacaobimestral_parte1.ui.listarpokemon.ListarPokemonFragment"
         android:label="@string/menu_listar_pokemon"
         tools:layout="@layout/fragment_pokemon_listar_b" />
 </navigation>

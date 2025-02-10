@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import javax.annotation.processing.Generated;
 
 @Generated("jsonschema2pojo")
-public class Pokemon {
+public class Pokemons {
 
     @SerializedName("count")
     @Expose

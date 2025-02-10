@@ -20,4 +20,10 @@ public interface ResultDao {
 
     @Query("DELETE FROM pokemon_table")
     void deleteAll();
+
+    /**
+     * para salvar em lote.
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long[] insertAll(List<Result> results);
 }

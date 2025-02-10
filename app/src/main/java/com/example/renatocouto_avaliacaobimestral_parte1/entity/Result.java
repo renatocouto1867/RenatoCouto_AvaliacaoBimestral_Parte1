@@ -15,6 +15,14 @@ public class Result {
     @PrimaryKey(autoGenerate = true)
     private int idBanco;
 
+    public int getIdBanco() {
+        return idBanco;
+    }
+
+    public void setIdBanco(int idBanco) {
+        this.idBanco = idBanco;
+    }
+
     private int id;
     @SerializedName("name")
     @Expose

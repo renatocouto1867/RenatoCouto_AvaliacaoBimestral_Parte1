@@ -14,4 +14,18 @@
     <string name="url">Url</string>
     <string name="erro_ao_baixar_dados">Erro ao Baixar dados</string>
     <string name="carregando">Carregando...</string>
+    <string name="atualizar_lista_de_pokemon">Atualizar lista de Pokémon</string>
+    <string name="atualizar">Atualizar</string>
+    <string name="limpar_banco_de_dados">Limpar banco de dados</string>
+    <string name="limpar_banco">Limpar Banco</string>
+    <string name="salvar_pokemon">Salvar Pokémon</string>
+    <string name="salvar">Salvar</string>
+    <string name="nenhum_pokemon_encontrado">Nenhum Pokémon encontrado</string>
+    <string name="carregando_dados">Carregando dados</string>
+    <string name="lista_salva_com_sucesso">Lista salva com sucesso</string>
+
+    <string name="confirmar_exclusao">Confirmar Exclusão</string>
+    <string name="realmente_deseja_deletar">"Você realmente deseja Limpar o banco de dados?"</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="confirma">Confirma</string>
 </resources>

@@ -9,10 +9,12 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary_color">#40E0D0</color>
 
+    <color name="blue">#0d33b3</color>
+    <color name="green">#0e7a0d</color>
     <color name="soft_blue">#A7C7E7</color>
     <color name="sage_green">#B2BEB5</color>
     <color name="soft_lilac">#C8A2C8</color>
-    <color name="coral">#FF7F50</color>
+    <color name="coral">#FF5950</color>
     <color name="turquoise">#40E0D0</color>
     <color name="mustard">#FFDB58</color>
     <color name="charcoal">#36454F</color>

@@ -4,40 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.listarpokemon.LitarPokemonFragment">
+    android:padding="8dp"
+    tools:context=".ui.listarpokemon.ListarPokemonFragment">
 
+    <!-- Botões -->
+    <LinearLayout
+        android:id="@+id/linear_layout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="70dp"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/button_baixar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/button"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue"
+            android:contentDescription="@string/atualizar_lista_de_pokemon"
+            android:text="@string/atualizar" />
+
+        <Button
+            android:id="@+id/button_limpar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="4dp"
+            style="?android:attr/button"
+            android:layout_weight="1"
+            android:backgroundTint="@color/coral"
+
+            android:contentDescription="@string/limpar_banco_de_dados"
+            android:text="@string/limpar_banco" />
+
+        <Button
+            android:id="@+id/button_salvar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="?android:attr/button"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green"
+            android:contentDescription="@string/salvar_pokemon"
+            android:text="@string/salvar" />
+    </LinearLayout>
+
+    <!-- Lista de Pokémons -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_pokemons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/progress_circular"
-        style="@android:style/Widget.ProgressBar.Small"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:indeterminateTint="@color/coral"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/tv_carregando"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerView_pokemons"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <TextView
-        android:id="@+id/tv_carregando"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/carregando"
-        android:textSize="20sp"
+        android:clipToPadding="false"
+        android:paddingVertical="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progress_circular" />
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_button" />
+
+    <!-- quando estiver vazio -->
+    <TextView
+        android:id="@+id/tv_empty_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nenhum_pokemon_encontrado"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_layout_button" />
+
+    <!-- Container de carregamento -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loading_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/carregando_dados"
+            android:indeterminateTint="@color/coral"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_carregando"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/carregando"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_circular" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

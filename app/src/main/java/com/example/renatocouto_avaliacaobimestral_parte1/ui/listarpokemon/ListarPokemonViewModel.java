@@ -1,7 +1,9 @@
 package com.example.renatocouto_avaliacaobimestral_parte1.ui.listarpokemon;
 
+import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -23,6 +25,7 @@ public class ListarPokemonViewModel extends ViewModel {
         liveDataMensagem = new MutableLiveData<>();
         liveDataRecebido = new MutableLiveData<>();
     }
+
 
     public void listar50Pokemons() {
 

@@ -13,7 +13,7 @@ import java.util.List;
 public interface ResultDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Result result);
+    long insert(Result result);
 
     @Query("SELECT * FROM pokemon_table ORDER BY name ASC")
     List<Result> getAllResults();

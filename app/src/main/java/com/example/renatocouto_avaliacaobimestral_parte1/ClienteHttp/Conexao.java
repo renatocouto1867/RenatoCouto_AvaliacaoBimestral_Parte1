@@ -13,15 +13,19 @@ public class Conexao {
     public InputStream obterRespostaHTTP(String end) {
         try {
             URL url = new URL(end);
-            HttpURLConnection conexao = (HttpURLConnection)
-                    url.openConnection();
+
+            HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
+
             conexao.setRequestMethod("GET");
+
             return new BufferedInputStream(conexao.getInputStream());
+
         } catch (MalformedInputException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 }//class

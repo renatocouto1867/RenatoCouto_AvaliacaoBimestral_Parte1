@@ -1,7 +1,6 @@
 package com.example.renatocouto_avaliacaobimestral_parte1.ui.listarpokemon;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,7 +55,7 @@ public class ListarPokemonFragment extends Fragment {
         listarPokemonViewModel.getPokemons().observe(getViewLifecycleOwner(), results -> {
             if (results != null) {
                 resultList = results;
-                if (resultList.isEmpty() || resultList == null || resultList.size() == 0) {
+                if (resultList.isEmpty()) {
                     binding.recyclerViewPokemons.setVisibility(View.GONE);
                     binding.tvEmptyState.setVisibility(View.VISIBLE);
                 } else {
@@ -71,52 +70,36 @@ public class ListarPokemonFragment extends Fragment {
     }
 
     private void configuraButtons() {
-        binding.buttonSalvar.setOnClickListener(view -> {
-            salvarListaBanco();
-        });
+        binding.buttonSalvar.setOnClickListener(view -> salvarListaBanco());
 //        apenas para teste
 //        binding.buttonBaixar.setOnClickListener(view -> {
 //            atualizarListaApi();
 //        });
-        binding.buttonLimpar.setOnClickListener(view -> {
-            limparBandoDados();
-
-        });
+        binding.buttonLimpar.setOnClickListener(view -> limparBandoDados());
     }
 
     private void limparBandoDados() {
 
         new AlertDialog.Builder(getContext()).setTitle(R.string.confirmar_exclusao)
                 .setMessage(getString(R.string.realmente_deseja_deletar))
-                .setPositiveButton(getString(R.string.confirma), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //sim
-                        listarPokemonViewModel.limparBandoDados();
-                        listarPokemonViewModel.getMensagem().observe(getViewLifecycleOwner(), s -> {
-                            if (s.equals("sucesso")) {
-                                Mensagens.showAlerta(requireView(), getString(R.string.listas_excluida));
-                            }
-                            if (s.equals("erro")) {
-                                Mensagens.showErro(requireView(), getString(R.string.erro_ao_deletar_registros));
-                            }
-                            if (s.equals("vazio")) {
-                                Mensagens.showErro(requireView(), getString(R.string.banco_vazio));
-                            }
-                        });
-                    }
-                }).setNegativeButton(R.string.confirma, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //não
-                        dialog.dismiss();
-                    }
+                .setPositiveButton(getString(R.string.confirma), (dialog, which) -> {
+                    //sim
+                    listarPokemonViewModel.limparBandoDados();
+                    listarPokemonViewModel.getMensagem().observe(getViewLifecycleOwner(), s -> {
+                        if (s.equals("sucesso")) {
+                            Mensagens.showAlerta(requireView(), getString(R.string.listas_excluida));
+                        }
+                        if (s.equals("erro")) {
+                            Mensagens.showErro(requireView(), getString(R.string.erro_ao_deletar_registros));
+                        }
+                        if (s.equals("vazio")) {
+                            Mensagens.showErro(requireView(), getString(R.string.banco_vazio));
+                        }
+                    });
+                }).setNegativeButton(R.string.cancelar, (dialog, which) -> {
+                    //não
+                    dialog.dismiss();
                 }).create().show();
-    }
-
-    private void atualizarListaApi() {
-//        listarPokemonViewModel.listarBanco();
-        listarPokemonViewModel.listar50Pokemons();
     }
 
     private void salvarListaBanco() {
@@ -132,7 +115,7 @@ public class ListarPokemonFragment extends Fragment {
     private void configurarRecyclerViews(List<Result> results) {
         Log.e("tamanho lista", String.valueOf(results.size()));
 
-        if (results.isEmpty() || results == null || results.size() == 0) {
+        if (results.isEmpty()) {
             binding.tvEmptyState.setVisibility(View.VISIBLE);
         } else {
 

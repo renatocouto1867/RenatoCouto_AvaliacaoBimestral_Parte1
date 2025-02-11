@@ -1,9 +1,11 @@
 package com.example.renatocouto_avaliacaobimestral_parte1.repository;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import com.example.renatocouto_avaliacaobimestral_parte1.ClienteHttp.Conexao;
+import com.example.renatocouto_avaliacaobimestral_parte1.R;
 import com.example.renatocouto_avaliacaobimestral_parte1.entity.Pokemons;
 import com.example.renatocouto_avaliacaobimestral_parte1.entity.Result;
 import com.example.renatocouto_avaliacaobimestral_parte1.util.Auxilia;
@@ -23,18 +25,20 @@ public class DadosRepository {
     private static final String URL = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
     private final ResultDao resultDao;
     private final ExecutorService executorService;
+    private final Context context;
     private Pokemons dadosBaixados;
 
     public DadosRepository(Application application) {
         AppDatabase database = AppDatabase.getDatabase(application);
         resultDao = database.resultDao();
         executorService = Executors.newSingleThreadExecutor();
+        context = application.getApplicationContext();
     }
 
     /**
      * Para Executar a requisição da API, deve ser executado em uma thread separada
      */
-    private Pokemons apiObterDadosAsync() {
+    private Pokemons apiObterDados() {
 
         if (dadosBaixados != null) {
             return dadosBaixados;
@@ -59,13 +63,13 @@ public class DadosRepository {
         }//if else
     }
 
-    /**
-     * Método público para obter todos os pokémons da API
-     */
-    private Pokemons obterPokemons() {
-        Pokemons dados = apiObterDadosAsync();
-        return dados;
-    }
+//    /**
+//     * Método público para obter todos os pokémons da API
+//     */
+//    private Pokemons obterPokemons() {
+//        Pokemons dados = apiObterDados();
+//        return dados;
+//    }
 
     /**
      * Método público para obter apenas os 50 primeiros Pokémons
@@ -73,7 +77,7 @@ public class DadosRepository {
     public void obter50Pokemons(OnBaixarListener listener) {
         executorService.execute(() -> {
             try {
-                Pokemons dados = apiObterDadosAsync();
+                Pokemons dados = apiObterDados();
 
                 if (dados != null && dados.getResults() != null) {
                     List<Result> todosResultados = dados.getResults();
@@ -82,13 +86,13 @@ public class DadosRepository {
                     List<Result> lista50 = todosResultados.subList(0, Math.min(50, todosResultados.size()));
                     Log.i(TAG, "Lista de Pokémons obtida: " + lista50.size());
 
-                    listener.sucesso(new ArrayList<Result>(lista50));
+                    listener.sucesso(new ArrayList<>(lista50));
 
                 } else {
-                    listener.erro("Não foi possível obter dados dos Pokémons");
+                    listener.erro(context.getString(R.string.n_o_foi_poss_vel_obter_dados_dos_pok_mons));
                 }
             } catch (Exception e) {
-                listener.erro("Erro ao baixar Pokémons: " + e.getMessage());
+                listener.erro(context.getString(R.string.erro_ao_baixar_pok_mons) + e.getMessage());
             }
         });
     }
@@ -125,8 +129,15 @@ public class DadosRepository {
     /**
      * Insere um Pokémon no banco de dados
      */
-    public void bancoInsert(Result result) {
-        executorService.execute(() -> resultDao.insert(result));
+    public void bancoInsert(Result result, OnInsertListener listener) {
+        executorService.execute(() -> {
+            long registrosAfetados = resultDao.insert(result);
+            if (registrosAfetados >= 0) {
+                listener.onSuccess(registrosAfetados);
+            } else {
+                listener.onError("erro");
+            }
+        });
     }
 
     /**
@@ -140,10 +151,10 @@ public class DadosRepository {
                 if (results != null) {
                     listener.sucesso(new ArrayList<>(results));
                 } else {
-                    listener.erro("Não foi possível obter dados dos Pokémons");
+                    listener.erro(context.getString(R.string.n_o_foi_poss_vel_obter_dados_dos_pok_mons));
                 }
             } catch (Exception e) {
-                listener.erro("Erro ao baixar Pokémons: " + e.getMessage());
+                listener.erro(context.getString(R.string.erro_ao_baixar_pok_mons) + e.getMessage());
             }
         });
 
@@ -154,9 +165,9 @@ public class DadosRepository {
      */
     public void bancoDeleteAll(OnDeleteAllListener listener) {
         executorService.execute(() -> {
-            int deletedRows = resultDao.deleteAll();
-            if (deletedRows >= 0) {
-                listener.onSuccess(deletedRows);
+            int registrosAfetados = resultDao.deleteAll();
+            if (registrosAfetados >= 0) {
+                listener.onSuccess(registrosAfetados);
             } else {
                 listener.onError("erro");
             }
@@ -178,11 +189,15 @@ public class DadosRepository {
                     listener.sucesso(ids);
 
                 } catch (Exception e) {
-                    listener.erro("Erro ao salvar Pokémons: " + e.getMessage());
+                    listener.erro(context.getString(R.string.erro_ao_baixar_pok_mons) + e.getMessage());
                 }
             });
         }
     }
+
+    // Interfaces para fazer callback.
+    // Achei melhor fazer com callback, mas vi que da para usar o LiviData
+    // fiquei um pouco perdido com tanto LiviData, mas depois vi que era mais facil.
 
     public interface OnBaixarListener {
         void sucesso(List<Result> results);
@@ -192,6 +207,12 @@ public class DadosRepository {
 
     public interface OnDeleteAllListener {
         void onSuccess(int registrosAfetados);
+
+        void onError(String error);
+    }
+
+    public interface OnInsertListener {
+        void onSuccess(long registrosAfetados);
 
         void onError(String error);
     }

@@ -29,8 +29,7 @@ public class ListarPokemonViewModel extends ViewModel {
         dadosRepository.obter50Pokemons(new DadosRepository.OnBaixarListener() {
             @Override
             public void sucesso(List<Result> results) {
-                List<Result> pokemonList = new ArrayList<>();
-                pokemonList.addAll(results);
+                List<Result> pokemonList = new ArrayList<>(results);
                 liveDataRecebido.postValue(new ArrayList<>(pokemonList));
             }
 
@@ -54,12 +53,11 @@ public class ListarPokemonViewModel extends ViewModel {
         dadosRepository.bancoGetAllResults(new DadosRepository.OnBaixarListener() {
             @Override
             public void sucesso(List<Result> results) {
-                List<Result> pokemonList = new ArrayList<>();
-                pokemonList.addAll(results);
+                List<Result> pokemonList = new ArrayList<>(results);
                 Log.e("tamanho lista Banco", String.valueOf(pokemonList.size()));
-                if (pokemonList.size() == 0 || pokemonList == null || pokemonList.isEmpty()) {
+                if (pokemonList.isEmpty()) {
                     Log.e("tamanho lista Banco", "lista vazia");
-                    liveDataRecebido.postValue(new ArrayList<Result>());
+                    liveDataRecebido.postValue(new ArrayList<>());
                 }
                 liveDataRecebido.postValue(new ArrayList<>(pokemonList));
             }

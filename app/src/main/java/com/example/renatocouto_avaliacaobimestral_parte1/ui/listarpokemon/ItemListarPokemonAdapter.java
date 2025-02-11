@@ -18,8 +18,8 @@ public class ItemListarPokemonAdapter extends RecyclerView.Adapter<ItemListarPok
     private final List<Result> results;
 
     /**
-     *acrescentei a checagem de resultado nulo, para evitar um erro de NullPointerException
-     * */
+     * acrescentei a checagem de resultado nulo, para evitar um erro de NullPointerException
+     */
     public ItemListarPokemonAdapter(List<Result> results) {
         this.results = results != null ? results : List.of();
     }

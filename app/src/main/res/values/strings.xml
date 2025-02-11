@@ -32,4 +32,6 @@
     <string name="confirma">Confirma</string>
     <string name="erro_ao_deletar_registros">Erro ao deletar registros</string>
     <string name="banco_vazio">Não existe nenhum registro no banco</string>
+    <string name="erro_ao_baixar_pok_mons">"Erro ao baixar Pokémons: "</string>
+    <string name="n_o_foi_poss_vel_obter_dados_dos_pok_mons">Não foi possível obter dados dos Pokémons</string>
 </resources>

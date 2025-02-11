@@ -14,6 +14,13 @@ public class Result {
 
     @PrimaryKey(autoGenerate = true)
     private int idBanco;
+    private int id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("url")
+    @Expose
+    private String url;
 
     public int getIdBanco() {
         return idBanco;
@@ -22,14 +29,6 @@ public class Result {
     public void setIdBanco(int idBanco) {
         this.idBanco = idBanco;
     }
-
-    private int id;
-    @SerializedName("name")
-    @Expose
-    private String name;
-    @SerializedName("url")
-    @Expose
-    private String url;
 
     public String getName() {
         return name;

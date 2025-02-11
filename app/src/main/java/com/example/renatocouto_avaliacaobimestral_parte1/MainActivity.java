@@ -14,6 +14,19 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.renatocouto_avaliacaobimestral_parte1.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 
+/*
+Crie um aplicativo com os seguintes requisitos:
+Usando o NavigationDrawer (pode ser tanto o template da IDE, ou a versão simplificada)
+faça um app que consuma os dados da PokéAPI. Trata-se de uma API gratuita e regida pela
+BSD-3-Clause license e autoria de Paul Hallett.
+A API disponibiliza dados referentes aos personagens do Pokémon.
+A API está disponível no seguinte endereço: https://pokeapi.co/.
+Seu app deve mostrar uma lista com 50 personagens apresentando: o ID, o nome e
+a URL do personagem (valor: 1.0).
+Salve os dados em um banco local (valor: 2.0).
+OBS: seu app deve usar Executor e conter apenas 1 Activity e as demais telas deverão ser Fragments.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;

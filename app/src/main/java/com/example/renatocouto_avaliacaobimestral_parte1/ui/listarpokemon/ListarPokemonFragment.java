@@ -34,7 +34,7 @@ public class ListarPokemonFragment extends Fragment {
         DadosRepository dadosRepository = new DadosRepository(requireActivity().getApplication());
         ListarPokemonViewModelFactory factory = new ListarPokemonViewModelFactory(dadosRepository);
 
-        // aqui passo viewModelFactory ja com repositorio
+        // aqui passo viewModelFactory ja com o viewModel com o repositorio
         listarPokemonViewModel = new ViewModelProvider(this, factory)
                 .get(ListarPokemonViewModel.class);
 
